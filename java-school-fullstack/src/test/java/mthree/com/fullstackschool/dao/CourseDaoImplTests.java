@@ -1,7 +1,5 @@
 package mthree.com.fullstackschool.dao;
 
-
-
 import mthree.com.fullstackschool.model.Course;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

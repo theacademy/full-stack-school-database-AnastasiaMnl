@@ -81,7 +81,6 @@ public class CourseServiceImpl implements CourseServiceInterface {
             throw new RuntimeException("Unable to delete course with id: "+id, ex);
         }
 
-
         //YOUR CODE ENDS HERE
     }
 }

@@ -90,7 +90,6 @@ public class TeacherServiceImpl implements TeacherServiceInterface {
             throw new RuntimeException("Unable to delete teacher with id: "+ id, ex);
         }
 
-
         //YOUR CODE ENDS HERE
     }
 }
