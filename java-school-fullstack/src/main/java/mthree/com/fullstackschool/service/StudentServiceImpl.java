@@ -51,14 +51,14 @@ public class StudentServiceImpl implements StudentServiceInterface {
     public Student addNewStudent(Student student) {
         //YOUR CODE STARTS HERE
 
-        if (student.getStudentFirstName() == null || student.getStudentLastName().isBlank()) {
-            throw new IllegalArgumentException("Student first name cannot be empty");
+        if (student.getStudentFirstName() == null || student.getStudentFirstName().isBlank()
+                || student.getStudentLastName() == null || student.getStudentLastName().isBlank()) {
+
+            student.setStudentFirstName("First Name blank, student NOT added");
+            student.setStudentLastName("Last Name blank, student NOT added");
+            return student;
         }
-        try {
-            return studentDao.createNewStudent(student);
-        } catch (DataAccessException ex){
-            throw new RuntimeException("Unable to create new student, ex");
-        }
+        return studentDao.createNewStudent(student);
 
         //YOUR CODE ENDS HERE
     }
@@ -66,15 +66,13 @@ public class StudentServiceImpl implements StudentServiceInterface {
     public Student updateStudentData(int id, Student student) {
         //YOUR CODE STARTS HERE
 
-        if (student.getStudentId() != id){
-            throw new IllegalArgumentException("Student ID in path does not match student body");
-        }
-        try {
-            studentDao.updateStudent(student);
+        if (student.getStudentId() != id) {
+            student.setStudentFirstName("IDs do not match, student not updated");
+            student.setStudentLastName("IDs do not match, student not updated");
             return student;
-        } catch (DataAccessException ex){
-            throw new RuntimeException("Unable to update student with id: "+id, ex);
         }
+        studentDao.updateStudent(student);
+        return student;
 
         //YOUR CODE ENDS HERE
     }

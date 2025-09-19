@@ -63,7 +63,13 @@ public class CourseServiceImpl implements CourseServiceInterface {
         //YOUR CODE STARTS HERE
 
         try {
-            courseDao.updateCourse(course);
+            if (id != course.getCourseId()){
+                course.setCourseName("IDs do not match, course not updated");
+                course.setCourseDesc("IDs do not match, course not updated");
+            }
+            else {
+                courseDao.updateCourse(course);
+            }
             return course;
         } catch (DataAccessException ex) {
             throw new RuntimeException("Unable to update course with id: " +id, ex);

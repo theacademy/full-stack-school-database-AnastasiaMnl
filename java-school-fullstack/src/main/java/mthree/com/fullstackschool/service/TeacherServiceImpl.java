@@ -50,17 +50,14 @@ public class TeacherServiceImpl implements TeacherServiceInterface {
     public Teacher addNewTeacher(Teacher teacher) {
         //YOUR CODE STARTS HERE
 
-        if (teacher.getTeacherFName() == null || teacher.getTeacherFName().isBlank() ){
-            throw new IllegalArgumentException("Teacher's first name cannot be empty");
+        if (teacher.getTeacherFName() == null || teacher.getTeacherFName().isBlank()
+                || teacher.getTeacherLName() == null || teacher.getTeacherLName().isBlank()) {
+
+            teacher.setTeacherFName("First Name blank, teacher NOT added");
+            teacher.setTeacherLName("Last Name blank, teacher NOT added");
+            return teacher;
         }
-        if (teacher.getTeacherLName() == null || teacher.getTeacherLName().isBlank()){
-            throw new IllegalArgumentException("Teacher's last name cannot be empty");
-        }
-        try {
-            return teacherDao.createNewTeacher(teacher);
-        } catch (DataAccessException ex){
-            throw new RuntimeException("Unable to create new teacher", ex);
-        }
+        return teacherDao.createNewTeacher(teacher);
 
         //YOUR CODE ENDS HERE
     }
@@ -69,14 +66,12 @@ public class TeacherServiceImpl implements TeacherServiceInterface {
         //YOUR CODE STARTS HERE
 
         if (teacher.getTeacherId() != id) {
-            throw new IllegalArgumentException("Teacher id in path does not match teacher body");
-        }
-        try {
-            teacherDao.updateTeacher(teacher);
+            teacher.setTeacherFName("IDs do not match, teacher not updated");
+            teacher.setTeacherLName("IDs do not match, teacher not updated");
             return teacher;
-        } catch (DataAccessException ex) {
-            throw new RuntimeException("Unable to update teacher with id: "+ id, ex);
         }
+        teacherDao.updateTeacher(teacher);
+        return teacher;
 
         //YOUR CODE ENDS HERE
     }
